@@ -40,5 +40,5 @@ services:
       - POSTGRES_PASSWORD=password
     volumes:
       - ./dispiele/postgres-data:/var/lib/postgresql/data
-      - ./dispiele/postgres/schema.sql:/docker-entrypoint-initdb.d/a_init.sql
-      - ./dispiele/postgres/data.sql:/docker-entrypoint-initdb.d/b_data.sql
+      # - ./dispiele/postgres/schema.sql:/docker-entrypoint-initdb.d/a_init.sql
+      # - ./dispiele/postgres/data.sql:/docker-entrypoint-initdb.d/b_data.sql
