@@ -11,6 +11,13 @@ services:
       - '/app/node_modules'
     ports:
       - 82:80
+  dispielemanufaktur-dev:
+    container_name: dispielemanufaktur-dev
+    image: 'ghcr.io/sparkobbable/deutschirischespielemanufaktur:dev'
+    volumes:
+      - '/app/node_modules'
+    ports:
+      - 83:80
   # app:
   #   build:
   #     context: ./RideSchedulerBackend
