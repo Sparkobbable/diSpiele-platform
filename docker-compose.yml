@@ -38,6 +38,8 @@ services:
       - POSTGRES_DB=dispiele
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
+    ports: 
+      - 5050:5432
     volumes:
       - ./dispiele/postgres-data:/var/lib/postgresql/data
       # - ./dispiele/postgres/schema.sql:/docker-entrypoint-initdb.d/a_init.sql
