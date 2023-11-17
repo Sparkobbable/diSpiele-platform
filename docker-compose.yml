@@ -14,6 +14,8 @@ services:
   dispielemanufaktur-dev:
     container_name: dispielemanufaktur-dev
     image: 'ghcr.io/sparkobbable/deutschirischespielemanufaktur:dev'
+    depends_on:
+      - api
     volumes:
       - '/app/node_modules'
     ports:
