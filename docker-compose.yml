@@ -13,7 +13,7 @@ services:
         container_name: dispielemanufaktur-dev
         image: "ghcr.io/sparkobbable/deutschirischespielemanufaktur:dev"
         depends_on:
-            - api
+            - api-dev
         volumes:
             - "/app/node_modules"
         ports:
@@ -21,6 +21,19 @@ services:
     api:
         container_name: dispiele-backend
         image: "ghcr.io/sparkobbable/dispiele-backend:latest"
+        depends_on:
+            - db
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dispiele
+            - SPRING_DATASOURCE_USERNAME=${DB_USER}
+            - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+            - SPRING_MAIL_USERNAME=${EMAIL_USER}
+            - SPRING_MAIL_PASSWORD=${EMAIL_PASSWORD}
+        ports:
+            - 8081:8080
+    api-dev:
+        container_name: dispiele-backend-dev
+        image: "ghcr.io/sparkobbable/dispiele-backend:dev"
         depends_on:
             - db
         environment:
