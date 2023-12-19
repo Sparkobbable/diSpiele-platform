@@ -35,9 +35,9 @@ services:
         container_name: dispiele-backend-dev
         image: "ghcr.io/sparkobbable/dispiele-backend:dev"
         depends_on:
-            - db
+            - db-dev
         environment:
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dispiele
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db-dev:5432/dispiele-dev
             - SPRING_DATASOURCE_USERNAME=${DB_USER}
             - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
             - SPRING_MAIL_USERNAME=${EMAIL_USER}
@@ -55,5 +55,18 @@ services:
             - 5050:5432
         volumes:
             - ./dispiele/postgres-data:/var/lib/postgresql/data
+            # - ./dispiele/postgres/schema.sql:/docker-entrypoint-initdb.d/a_init.sql
+            # - ./dispiele/postgres/data.sql:/docker-entrypoint-initdb.d/b_data.sql
+    db-dev:
+        image: "postgres:14.2"
+        container_name: dispieleDB-dev
+        environment:
+            - POSTGRES_DB=dispiele-dev
+            - POSTGRES_USER=${DB_USER}
+            - POSTGRES_PASSWORD=${DB_PASSWORD}
+        ports:
+            - 5051:5432
+        volumes:
+            - ./dispiele/dev/postgres-data:/var/lib/postgresql/data
             # - ./dispiele/postgres/schema.sql:/docker-entrypoint-initdb.d/a_init.sql
             # - ./dispiele/postgres/data.sql:/docker-entrypoint-initdb.d/b_data.sql
