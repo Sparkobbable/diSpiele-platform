@@ -54,7 +54,7 @@ services:
             - SPRING_DATASOURCE_USERNAME=${DB_USER}
             - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
         ports:
-            - 9000:9000
+            - 9001:9000
     auth-dev:
         container_name: dispiele-authorization-dev
         image: "ghcr.io/sparkobbable/dispiele-authorization:dev"
@@ -65,7 +65,7 @@ services:
             - SPRING_DATASOURCE_USERNAME=${DB_USER}
             - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
         ports:
-            - 9001:9000
+            - 9002:9000
     admin-api:
         container_name: dispiele-admin-api
         image: "ghcr.io/sparkobbable/dispiele-admin-backend:latest"
