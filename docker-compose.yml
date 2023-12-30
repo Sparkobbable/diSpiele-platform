@@ -94,6 +94,24 @@ services:
             - SPRING_MAIL_PASSWORD=${EMAIL_PASSWORD}
         ports:
             - 8091:8081
+    admin-ui:
+        container_name: dispiele-admin-ui
+        image: "ghcr.io/sparkobbable/admin-ui:latest"
+        depends_on:
+            - admin-api
+        volumes:
+            - "/app/node_modules"
+        ports:
+            - 91:80
+    admin-ui-dev:
+        container_name: dispiele-admin-ui-dev
+        image: "ghcr.io/sparkobbable/admin-ui:dev"
+        depends_on:
+            - admin-api-dev
+        volumes:
+            - "/app/node_modules"
+        ports:
+            - 92:80
     db:
         image: "postgres:14.2"
         container_name: dispieleDB
