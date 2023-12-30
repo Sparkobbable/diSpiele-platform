@@ -44,6 +44,56 @@ services:
             - SPRING_MAIL_PASSWORD=${EMAIL_PASSWORD}
         ports:
             - 8082:8080
+    auth:
+        container_name: dispiele-authorization
+        image: "ghcr.io/sparkobbable/dispiele-authorization:latest"
+        depends_on:
+            - db
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dispiele
+            - SPRING_DATASOURCE_USERNAME=${DB_USER}
+            - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+        ports:
+            - 9000:9000
+    auth-dev:
+        container_name: dispiele-authorization-dev
+        image: "ghcr.io/sparkobbable/dispiele-authorization:dev"
+        depends_on:
+            - db-dev
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db-dev:5432/dispiele-dev
+            - SPRING_DATASOURCE_USERNAME=${DB_USER}
+            - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+        ports:
+            - 9001:9000
+    admin-api:
+        container_name: dispiele-admin-api
+        image: "ghcr.io/sparkobbable/dispiele-admin-backend:latest"
+        depends_on:
+            - auth
+            - db
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/dispiele
+            - SPRING_DATASOURCE_USERNAME=${DB_USER}
+            - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+            - SPRING_MAIL_USERNAME=${EMAIL_USER}
+            - SPRING_MAIL_PASSWORD=${EMAIL_PASSWORD}
+        ports:
+            - 8090:8081
+    admin-api-dev:
+        container_name: dispiele-admin-api-dev
+        image: "ghcr.io/sparkobbable/dispiele-admin-backend:dev"
+        depends_on:
+            - auth-dev
+            - db-dev
+        environment:
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://db-dev:5432/dispiele-dev
+            - SPRING_DATASOURCE_USERNAME=${DB_USER}
+            - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
+            - SPRING_MAIL_USERNAME=${EMAIL_USER}
+            - SPRING_MAIL_PASSWORD=${EMAIL_PASSWORD}
+        ports:
+            - 8091:8081
     db:
         image: "postgres:14.2"
         container_name: dispieleDB
